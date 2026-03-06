@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Legal Local Transcriber</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>Локальная транскрибация и диаризация</h1>
+      <p class="subtitle">
+        WhisperX + Pyannote + Ollama (Qwen 2.5), оптимизировано для юридических записей.
+      </p>
+
+      <section id="uploadSection" class="card">
+        <h2>1) Загрузка аудио</h2>
+        <label id="dropZone" class="drop-zone">
+          <input id="fileInput" type="file" accept="audio/*,.mp4,.mov,.m4a,.wav,.mp3,.flac,.ogg,.opus" hidden />
+          <span>Перетащите файл сюда или нажмите для выбора</span>
+        </label>
+        <div class="actions">
+          <button id="uploadBtn" disabled>Запустить обработку</button>
+        </div>
+        <p id="fileName" class="hint">Файл не выбран</p>
+      </section>
+
+      <section id="progressSection" class="card hidden">
+        <h2>2) Статус обработки</h2>
+        <div class="progress-wrap">
+          <div id="progressBar" class="progress-bar"></div>
+        </div>
+        <p id="stageText">Ожидание...</p>
+        <p id="errorText" class="error hidden"></p>
+      </section>
+
+      <section id="resultSection" class="card hidden">
+        <h2>3) Результат</h2>
+
+        <div class="grid">
+          <div>
+            <h3>Переименование спикеров</h3>
+            <div id="speakerPanel" class="speaker-panel"></div>
+          </div>
+          <div>
+            <h3>Экспорт</h3>
+            <div class="actions">
+              <button id="exportTxtBtn">Скачать .txt</button>
+              <button id="exportDocxBtn">Скачать .docx</button>
+            </div>
+          </div>
+        </div>
+
+        <h3>Протокол</h3>
+        <pre id="transcriptView" class="transcript"></pre>
+      </section>
+    </main>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>

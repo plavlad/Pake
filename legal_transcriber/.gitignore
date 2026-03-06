@@ -1,0 +1,7 @@
+.venv/
+data/uploads/*
+data/exports/*
+data/ollama.log
+!data/uploads/.gitkeep
+!data/exports/.gitkeep
+.env
