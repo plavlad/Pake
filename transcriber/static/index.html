@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Транскрибатор</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<!-- ── Шапка ──────────────────────────────────── -->
+<header class="header">
+    <h1>Транскрибатор</h1>
+    <div style="display:flex;align-items:center;gap:6px">
+        <span class="status-dot" id="statusDot"></span>
+        <span class="status-text" id="statusText">Проверка...</span>
+    </div>
+</header>
+
+<!-- ── Контент ────────────────────────────────── -->
+<div class="container">
+
+    <!-- Зона загрузки -->
+    <div class="upload-zone" id="uploadZone">
+        <div class="icon">🎙</div>
+        <h2>Перетащите аудиофайл сюда</h2>
+        <p>или нажмите для выбора &middot; MP3, WAV, M4A, OGG, FLAC, AAC, OPUS, WMA, WEBM, MP4</p>
+        <input type="file" id="fileInput"
+               accept=".mp3,.wav,.m4a,.ogg,.flac,.wma,.aac,.opus,.webm,.mp4">
+    </div>
+
+    <!-- Прогресс -->
+    <section class="progress-section" id="progressSection">
+        <div class="progress-card">
+            <div class="filename" id="progressFilename"></div>
+            <div class="progress-bar-track">
+                <div class="progress-bar-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-stage" id="progressStage">
+                <div class="spinner"></div>
+                <span>Подготовка...</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Результат -->
+    <section class="result-section" id="resultSection">
+
+        <!-- Панель спикеров -->
+        <div class="speakers-panel">
+            <h3>Спикеры — переименуйте участников</h3>
+            <div class="speaker-list" id="speakerList"></div>
+        </div>
+
+        <!-- Текст -->
+        <div class="result-text-container" id="resultText"></div>
+
+        <!-- Экспорт -->
+        <div class="export-bar">
+            <button class="btn btn-primary" onclick="exportResult('docx')">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="vertical-align:middle">
+                    <path d="M4 1h6l4 4v9a1 1 0 01-1 1H4a1 1 0 01-1-1V2a1 1 0 011-1z"
+                          stroke="currentColor" stroke-width="1.5" fill="none"/>
+                    <path d="M10 1v4h4" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+                Скачать DOCX
+            </button>
+            <button class="btn btn-secondary" onclick="exportResult('txt')">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="vertical-align:middle">
+                    <path d="M3 4h10M3 8h10M3 12h6"
+                          stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                Скачать TXT
+            </button>
+        </div>
+    </section>
+
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
