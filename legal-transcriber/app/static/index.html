@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Legal Audio Transcriber</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="layout">
+      <section class="panel hero">
+        <div>
+          <p class="eyebrow">Локальный AI-сервис</p>
+          <h1>Транскрибация, диаризация и юридическая корректировка аудио</h1>
+          <p class="subtitle">
+            WhisperX распознает и выравнивает речь, Pyannote разделяет спикеров, а Qwen 2.5
+            доводит текст до аккуратного протокольного вида.
+          </p>
+        </div>
+      </section>
+
+      <section class="panel uploader">
+        <div
+          id="dropzone"
+          class="dropzone"
+          tabindex="0"
+          role="button"
+          aria-label="Зона загрузки аудио"
+        >
+          <input id="fileInput" type="file" accept="audio/*,.mp3,.wav,.m4a,.ogg,.flac" hidden />
+          <p class="dropzone-title">Перетащите аудиофайл сюда</p>
+          <p class="dropzone-subtitle">или нажмите, чтобы выбрать файл</p>
+          <button id="selectButton" class="button button-secondary" type="button">Выбрать файл</button>
+          <p id="selectedFile" class="selected-file">Файл не выбран</p>
+        </div>
+        <div class="actions">
+          <button id="uploadButton" class="button" type="button" disabled>Запустить обработку</button>
+        </div>
+      </section>
+
+      <section id="statusPanel" class="panel status hidden">
+        <div class="status-row">
+          <div>
+            <p class="label">Текущий этап</p>
+            <p id="stageText" class="stage-text">Ожидание запуска</p>
+          </div>
+          <div>
+            <p class="label">Прогресс</p>
+            <p id="progressText" class="progress-text">0%</p>
+          </div>
+        </div>
+        <div class="progress-bar">
+          <div id="progressFill" class="progress-fill"></div>
+        </div>
+        <p id="errorText" class="error-text hidden"></p>
+      </section>
+
+      <section id="resultPanel" class="panel results hidden">
+        <div class="results-header">
+          <div>
+            <p class="eyebrow">Результат</p>
+            <h2>Готовый протокол</h2>
+          </div>
+          <div class="actions">
+            <button id="exportTxt" class="button button-secondary" type="button">Экспорт .txt</button>
+            <button id="exportDocx" class="button" type="button">Экспорт .docx</button>
+          </div>
+        </div>
+
+        <div class="result-grid">
+          <aside class="speaker-panel">
+            <h3>Спикеры</h3>
+            <p class="muted">
+              Изменения имени сразу обновляют текст ниже и используются при экспорте.
+            </p>
+            <div id="speakerList" class="speaker-list"></div>
+          </aside>
+
+          <section>
+            <div class="transcript-toolbar">
+              <button id="copyButton" class="button button-secondary" type="button">
+                Скопировать текст
+              </button>
+            </div>
+            <div id="transcriptSegments" class="transcript-segments"></div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <script src="/static/app.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,6 @@
+fastapi
+python-docx
+python-multipart
+requests
+uvicorn[standard]
+whisperx
