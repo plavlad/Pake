@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Юридический Транскрибатор</title>
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- ── Шапка ────────────────────────────────────────────── -->
+<header class="header">
+  <span class="header-icon">⚖️</span>
+  <div>
+    <div class="header-title">Юридический Транскрибатор</div>
+    <div class="header-subtitle">WhisperX · Диаризация · Qwen 2.5</div>
+  </div>
+</header>
+
+<!-- ── Основной контент ──────────────────────────────────── -->
+<main class="main">
+
+  <!-- Зона загрузки файла -->
+  <div class="card" id="upload-section">
+    <div id="dropzone" role="button" tabindex="0" aria-label="Загрузить аудиофайл">
+      <span class="drop-icon">🎙️</span>
+      <p class="drop-title">Перетащите аудиофайл сюда</p>
+      <p class="drop-subtitle">или нажмите кнопку для выбора файла</p>
+      <button class="btn-upload" onclick="document.getElementById('file-input').click()">
+        <span>📂</span> Выбрать файл
+      </button>
+      <p class="drop-formats">MP3 · WAV · MP4 · M4A · OGG · FLAC · OPUS · AVI · MKV · WEBM &nbsp;|&nbsp; до 2 ГБ</p>
+    </div>
+
+    <div class="file-info" id="file-info">
+      <span>📄</span>
+      <span class="file-name" id="file-name-display">—</span>
+    </div>
+
+    <input type="file" id="file-input"
+           accept=".mp3,.wav,.mp4,.m4a,.ogg,.flac,.opus,.avi,.mkv,.webm" />
+  </div>
+
+  <!-- Индикатор прогресса -->
+  <div class="card" id="progress-section">
+
+    <!-- Шаги обработки -->
+    <div class="stage-steps">
+      <div class="step" id="step-upload">
+        <div class="step-dot">1</div>
+        <span class="step-label">Загрузка</span>
+      </div>
+      <div class="step-connector" id="conn-1"></div>
+
+      <div class="step" id="step-transcribe">
+        <div class="step-dot">2</div>
+        <span class="step-label">Распознавание</span>
+      </div>
+      <div class="step-connector" id="conn-2"></div>
+
+      <div class="step" id="step-diarize">
+        <div class="step-dot">3</div>
+        <span class="step-label">Диаризация</span>
+      </div>
+      <div class="step-connector" id="conn-3"></div>
+
+      <div class="step" id="step-llm">
+        <div class="step-dot">4</div>
+        <span class="step-label">Редактура LLM</span>
+      </div>
+      <div class="step-connector" id="conn-4"></div>
+
+      <div class="step" id="step-done">
+        <div class="step-dot">✓</div>
+        <span class="step-label">Готово</span>
+      </div>
+    </div>
+
+    <!-- Прогресс-бар -->
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progress-bar" style="width: 0%"></div>
+    </div>
+    <div class="progress-info">
+      <span class="progress-stage" id="progress-stage">Ожидание...</span>
+      <span class="progress-pct" id="progress-pct">0%</span>
+    </div>
+
+    <!-- Блок ошибки -->
+    <div class="error-box" id="error-box"></div>
+  </div>
+
+  <!-- Панель спикеров -->
+  <div class="card" id="speakers-section">
+    <div class="section-title">
+      <span>🎭</span> Участники — переименуйте для протокола
+    </div>
+    <div class="speaker-list" id="speaker-list">
+      <!-- Заполняется из JS -->
+    </div>
+  </div>
+
+  <!-- Результат транскрипции -->
+  <div class="card" id="result-section">
+    <div class="result-header">
+      <div>
+        <div class="section-title" style="margin-bottom: 6px">
+          <span>📄</span> Протокол
+        </div>
+        <div class="tabs">
+          <button class="tab-btn active" id="tab-llm" onclick="switchTab('llm')">
+            Отредактированный
+          </button>
+          <button class="tab-btn" id="tab-raw" onclick="switchTab('raw')">
+            Исходный (STT)
+          </button>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:8px; align-items:flex-end;">
+        <div class="export-buttons">
+          <button class="btn-export" onclick="exportResult('txt')">
+            <span>📃</span> Скачать TXT
+          </button>
+          <button class="btn-export docx" onclick="exportResult('docx')">
+            <span>📝</span> Скачать DOCX
+          </button>
+        </div>
+        <button class="btn-new" onclick="resetToUpload()">
+          <span>⬆️</span> Новая запись
+        </button>
+      </div>
+    </div>
+
+    <div id="transcript-container">
+      <div class="empty-transcript">Результат появится здесь после обработки</div>
+    </div>
+  </div>
+
+</main>
+
+<!-- Toast-контейнер -->
+<div class="toast-container" id="toast-container"></div>
+
+<script src="/app.js"></script>
+</body>
+</html>
