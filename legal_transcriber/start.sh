@@ -7,6 +7,7 @@ REQ_FILE="$APP_DIR/requirements.txt"
 REQ_HASH_FILE="$VENV_DIR/.requirements.sha256"
 PORT="${PORT:-8000}"
 OLLAMA_MODEL="${OLLAMA_MODEL:-qwen2.5}"
+OLLAMA_MODEL_REGEX="${OLLAMA_MODEL//./\\.}"
 
 echo "=== Legal Local Transcriber: smart start ==="
 
@@ -31,6 +32,7 @@ if [[ -f "$APP_DIR/.env" ]]; then
   source "$APP_DIR/.env"
   set +a
   OLLAMA_MODEL="${OLLAMA_MODEL:-qwen2.5}"
+  OLLAMA_MODEL_REGEX="${OLLAMA_MODEL//./\\.}"
 fi
 
 echo "[1/6] Проверка сервиса Ollama..."
@@ -45,7 +47,7 @@ if ! ollama list >/dev/null 2>&1; then
 fi
 
 echo "[2/6] Проверка модели $OLLAMA_MODEL..."
-if ! ollama list | awk 'NR>1 {print $1}' | grep -Eq "^${OLLAMA_MODEL}(:.+)?$"; then
+if ! ollama list | awk 'NR>1 {print $1}' | grep -Eq "^${OLLAMA_MODEL_REGEX}(:.+)?$"; then
   echo "Модель '$OLLAMA_MODEL' не найдена. Загружаю..."
   ollama pull "$OLLAMA_MODEL"
 fi
