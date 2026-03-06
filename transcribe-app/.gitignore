@@ -1,0 +1,11 @@
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.env
+uploads/*
+!uploads/.gitkeep
+results/*
+!results/.gitkeep
+*.log
+.deps_installed_stamp
